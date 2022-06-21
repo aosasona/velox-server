@@ -1,0 +1,37 @@
+{
+  "name": "express-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/server.js",
+  "scripts": {
+    "start": "node ./dist/server",
+    "dev": "nodemon ./src/server.ts",
+    "build": "tsc -p .",
+    "test": "jest --detectOpenHandles",
+    "start:prod": "pm2 start --env production"
+  },
+  "keywords": [],
+  "author": "Ayodeji Osasona",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-async-handler": "^1.2.0",
+    "helmet": "^5.1.0",
+    "mongoose": "^6.3.3",
+    "redis": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/jest": "^28.1.2",
+    "@types/mongoose": "^5.11.97",
+    "@types/node": "^17.0.33",
+    "jest": "^28.1.1",
+    "nodemon": "^2.0.16",
+    "supertest": "^6.2.3",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.4"
+  }
+}
