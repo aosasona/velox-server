@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: "express-ts-boilerplate",
+      name: "velox",
       script: "./dist/server.js",
       watch: "./dist",
     },

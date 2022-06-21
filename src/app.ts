@@ -5,6 +5,9 @@ import cors from "cors";
 
 const app: Express = express();
 
+// Load environment variables from .env file
+require("dotenv").config();
+
 //APP MIDDLE-WARES
 // Middleware
 app.use(cors());
@@ -19,7 +22,7 @@ if (process.env.NODE_ENV === "production") {
 //APP ROUTES - IMPORT
 import { default as routes } from "./routes";
 
-app.use("/test", routes);
+app.use("/api", routes);
 
 //DEFAULT RESPONSE TO TEST API
 app.get("*", (req: Request, res: Response) => {

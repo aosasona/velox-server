@@ -1,6 +1,7 @@
-const router = require("express").Router();
-import { default as dummyRoutes } from "./dummy.route";
+const app = require("express").Router();
+import { default as auth } from "./auth.route";
 
-router.use("/", dummyRoutes);
+// Auth routes
+app.use("/auth", auth);
 
-export default router;
+export default app;

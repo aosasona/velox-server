@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-const MONGO_URI: string = process.env.MONGO_URI || "mongodb://localhost:27017";
+const MONGO_URI: string =
+  process.env.MONGO_URI || "mongodb://localhost:27017/nextchat";
 
 export function connect(): void {
   mongoose
