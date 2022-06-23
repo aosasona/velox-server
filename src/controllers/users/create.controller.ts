@@ -7,7 +7,7 @@ import CustomError from "../../utils/handlers/error.handler";
 import { default as User } from "../../models/user.model";
 import { generateToken } from "../../helpers/token.helper";
 
-const index = asyncHandler(
+const create = asyncHandler(
   async (req: Request, res: Response): Promise<any> => {
     try {
       let { username, password, confirmPassword } = req.body;
@@ -69,4 +69,4 @@ const index = asyncHandler(
   }
 );
 
-export default index;
+export default create;
