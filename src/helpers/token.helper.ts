@@ -1,10 +1,10 @@
-import { default as jwt } from "jsonwebtoken";
+import {default as jwt} from "jsonwebtoken";
 import config from "../config";
 
 export const generateToken = (id: string) => {
-  return jwt?.sign({ id }, config.jwtSecret, { expiresIn: "7d" });
+    return jwt?.sign({id}, config.jwtSecret, {expiresIn: "7d"});
 };
 
-export const verifyToken = (token: string) => {
-  return jwt?.verify(token, config.jwtSecret);
+export const verifyToken = async (token: string) => {
+    return jwt.verify(token, config.jwtSecret);
 };

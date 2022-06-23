@@ -1,5 +1,5 @@
 const router = require("express").Router();
-import {create, login} from "../controllers/users";
+import {create, login} from "../controllers/auth";
 
 ///// Create a new user /////
 router.post("/create", create);
