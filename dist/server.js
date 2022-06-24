@@ -9,8 +9,13 @@ require("dotenv").config();
 // Load the express module
 const app_1 = __importDefault(require("./app"));
 const db_1 = require("./services/db");
+const socket_io_1 = require("socket.io");
 const PORT = process.env.PORT || 8000;
 const server = http_1.default.createServer(app_1.default);
+const io = new socket_io_1.Server(server);
+// Socket.io event handlers
+io.on("connection", (socket) => {
+});
 // Start listening on port
 server.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
