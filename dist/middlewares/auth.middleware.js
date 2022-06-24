@@ -50,7 +50,7 @@ const authMiddleware = (0, express_async_handler_1.default)((req, res, next) => 
         next();
     }
     catch (err) {
-        console.log(err);
+        // console.log(err);
         return new response_handler_1.default(res).error("Something went wrong", {}, err.status || 500);
     }
 }));

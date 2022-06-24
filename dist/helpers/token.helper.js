@@ -16,7 +16,7 @@ exports.verifyToken = exports.generateToken = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = __importDefault(require("../config"));
 const generateToken = (id) => {
-    return jsonwebtoken_1.default === null || jsonwebtoken_1.default === void 0 ? void 0 : jsonwebtoken_1.default.sign({ id }, config_1.default.jwtSecret, { expiresIn: "7d" });
+    return jsonwebtoken_1.default === null || jsonwebtoken_1.default === void 0 ? void 0 : jsonwebtoken_1.default.sign({ id: id.toString() }, config_1.default.jwtSecret, { expiresIn: "7d" });
 };
 exports.generateToken = generateToken;
 const verifyToken = (token) => __awaiter(void 0, void 0, void 0, function* () {

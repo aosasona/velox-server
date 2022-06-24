@@ -41,8 +41,9 @@ const viewAll = (0, express_async_handler_1.default)((req, res) => __awaiter(voi
     try {
         // _id : { $ne: req._id }
         const customReq = req;
-        const currentUser = new mongoose_1.default.Types.ObjectId(customReq.user.id);
-        const users = yield user_model_1.default.find({ _id: { $ne: currentUser } }).select(["-password", "-updatedAt", "-__id", "-__v"]);
+        const currentUser = customReq.user.id;
+        let users = yield user_model_1.default.find({}).select(["-password", "-updatedAt", "-__id", "-__v"]);
+        users = users.filter(user => user._id.toString() !== currentUser);
         if (!users) {
             throw new error_handler_1.default("No users found", 404);
         }
