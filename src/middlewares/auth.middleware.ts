@@ -47,7 +47,8 @@ const authMiddleware = asyncHandler(async (req: Request, res: Response, next: Ne
         next()
 
     } catch (err: any) {
-        return new CustomResponse(res).error(err.message, {}, err.status || 500);
+        console.log(err);
+        return new CustomResponse(res).error("Something went wrong", {}, err.status || 500);
     }
 })
 
