@@ -5,12 +5,18 @@ const MessageSchema = new mongoose_1.Schema({
     receiver: {
         type: String,
         required: true,
+        ref: "User"
     },
     sender: {
         type: String,
         required: true,
+        ref: "User",
     },
     chatId: {
+        type: String,
+        required: true,
+    },
+    message: {
         type: String,
         required: true,
     }

@@ -70,7 +70,7 @@ const getCurrent = asyncHandler(async (req: Request, res: Response): Promise<any
         // }
 
         // Return the chat
-        return new CustomResponse(res).success("Fetched current chat", {user, messages: chat || {}}, 200);
+        return new CustomResponse(res).success("Fetched current chat", {user, chatId: chat?._id.toString() || ""}, 200);
 
     } catch (err: any) {
         return new CustomResponse(res).error(err.message, {}, err.status || 500);

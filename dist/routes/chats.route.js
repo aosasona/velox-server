@@ -5,5 +5,5 @@ const chats_1 = require("../controllers/chats");
 ///// Get All Of A Current User's Chats /////
 app.get("/", chats_1.getAll);
 ///// Get Current Conversations /////
-app.get("/:chatId", chats_1.getCurrent);
+app.get("/:username", chats_1.getCurrent);
 exports.default = app;

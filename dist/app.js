@@ -12,15 +12,15 @@ const app = (0, express_1.default)();
 if (process.env.NODE_ENV === "production") {
     app.use((0, helmet_1.default)());
 }
-app.disable("x-powered-by");
 app.use((0, cors_1.default)());
+app.disable("x-powered-by");
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use(express_1.default.json());
 //APP ROUTES - IMPORT
 const routes_1 = __importDefault(require("./routes"));
 app.use("/api", routes_1.default);
 //DEFAULT RESPONSE TO TEST API
-app.get("*", (req, res) => {
-    res.status(200).send("Hello, world!");
-});
+// app.get("*", (req: Request, res: Response) => {
+//     res.status(200).send("Hello, world!");
+// });
 exports.default = app;

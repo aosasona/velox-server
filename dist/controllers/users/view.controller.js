@@ -42,14 +42,15 @@ const viewAll = (0, express_async_handler_1.default)((req, res) => __awaiter(voi
         // _id : { $ne: req._id }
         const customReq = req;
         const currentUser = customReq.user.id;
-        let users = yield user_model_1.default.find({}).select(["-password", "-updatedAt", "-__id", "-__v"]);
-        users = users.filter(user => user._id.toString() !== currentUser);
+        let users = yield user_model_1.default.find({}).select(["-password", "-updatedAt", "-__v"]);
+        users = users.filter(user => { var _a; return ((_a = user === null || user === void 0 ? void 0 : user._id) === null || _a === void 0 ? void 0 : _a.toString()) !== currentUser; });
         if (!users) {
             throw new error_handler_1.default("No users found", 404);
         }
         return new response_handler_1.default(res).success("Fetched all users", users, 200);
     }
     catch (err) {
+        console.log(err);
         return new response_handler_1.default(res).error(err.message, {}, err.status || 500);
     }
 }));

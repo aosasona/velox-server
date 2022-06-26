@@ -4,19 +4,31 @@ import CustomError from "../../utils/handlers/error.handler";
 
 
 ///// Get all messages /////
-const getCurrentChat = async (chatId: string): Promise<any[]> => {
+const getCurrentChat = async (chatId: string): Promise<any> => {
 
-    if (!chatId) {
-        throw new CustomError("No chat ID provided", 400);
+    try {
+        if (!chatId) {
+            return {chatId: chatId || "", messages: []};
+        }
+
+        const messages = await Messages.find({chatId: chatId}).populate("receiver", "username").populate("sender", "username").select(["-_id"]).sort({createdAt: "asc"});
+
+
+        return {chatId, messages};
+    } catch (err: any) {
+        throw new CustomError("Message not sent!", 500);
     }
+}
 
-    const messages = await Messages.find({chatId: chatId}).populate("receiver", "username").populate("sender", "username").select(["-_id"]).sort({createdAt: "asc"});
-
-    return messages || [];
+interface Data {
+    receiver: string;
+    sender: string;
+    chatId: string;
+    message: string;
 }
 
 ///// SEND A NEW MESSAGE /////
-const sendMessage = async (socketId: string, data: any): Promise<any> => {
+const sendMessage = async (data: Data, socketId: string | undefined): Promise<any> => {
 
     try {
 
@@ -25,7 +37,7 @@ const sendMessage = async (socketId: string, data: any): Promise<any> => {
             $or: [{userA: data.sender, userB: data.receiver}, {userB: data.sender, userA: data.receiver}]
         })
 
-        let chatId: string = socketId;
+        let chatId: string | undefined = socketId;
 
         if (!conversation) {
             // Create a new conversation
@@ -48,7 +60,7 @@ const sendMessage = async (socketId: string, data: any): Promise<any> => {
             message: data.message
         });
 
-        return {message, chatId};
+        return message;
     } catch (err: any) {
         throw new CustomError("Message not sent!", 500);
     }
