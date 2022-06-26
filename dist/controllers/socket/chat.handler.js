@@ -57,7 +57,7 @@ const sendMessage = (data, socketId) => __awaiter(void 0, void 0, void 0, functi
             chatId: chatId,
             message: data.message
         });
-        return message;
+        return { message, chatId };
     }
     catch (err) {
         throw new error_handler_1.default("Message not sent!", 500);

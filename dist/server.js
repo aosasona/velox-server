@@ -53,7 +53,7 @@ io.on("connection", (socket) => {
     // When a message is sent
     socket.on("sent", (data) => {
         (0, chat_handler_1.sendMessage)(data, (data === null || data === void 0 ? void 0 : data.chatId) || chatId || "").then((res) => {
-            socket.emit(`received:${res === null || res === void 0 ? void 0 : res.chatId}`, { message: res === null || res === void 0 ? void 0 : res.message });
+            socket.emit(`received:${(res === null || res === void 0 ? void 0 : res.chatId) || (data === null || data === void 0 ? void 0 : data.chatId) || chatId || ""}`, { message: res === null || res === void 0 ? void 0 : res.message });
             // If no chatId is provided, send the new data
             if (!(data === null || data === void 0 ? void 0 : data.chatId) && !chatId) {
                 (0, chat_handler_1.getCurrentChat)(res === null || res === void 0 ? void 0 : res.chatId)

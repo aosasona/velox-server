@@ -49,7 +49,7 @@ io.on("connection", (socket: any) => {
     // When a message is sent
     socket.on("sent", (data: any) => {
         sendMessage(data, data?.chatId || chatId || "").then((res) => {
-            socket.emit(`received:${res?.chatId}`, {message: res?.message});
+            socket.emit(`received:${res?.chatId || data?.chatId || chatId || ""}`, {message: res?.message});
             // If no chatId is provided, send the new data
             if (!data?.chatId && !chatId) {
                 getCurrentChat(res?.chatId)

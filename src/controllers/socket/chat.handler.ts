@@ -60,7 +60,7 @@ const sendMessage = async (data: Data, socketId: string | undefined): Promise<an
             message: data.message
         });
 
-        return message;
+        return {message, chatId};
     } catch (err: any) {
         throw new CustomError("Message not sent!", 500);
     }
