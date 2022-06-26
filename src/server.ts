@@ -51,14 +51,19 @@ io.on("connection", (socket: any) => {
         sendMessage(data, data?.chatId || chatId || "").then((res) => {
             // io.emit(`received:${res?.chatId || data?.chatId || chatId || ""}`, {message: res?.message});
             // If no chatId is provided, send the new data
-            // if (!data?.chatId && !chatId) {
+
             getCurrentChat(res?.chatId)
                 .then((res) => {
                     io.emit(`received:${data?.chatId}`, res);
                 }).catch((err: any) => {
                 io.emit(`error:${data?.chatId || chatId || ""}`, {message: err.message})
             })
-            // }
+
+
+            // Event for completely new chat
+            if (!data?.chatId && !chatId) {
+                io.emit("new", {chatId: res?.chatId, userA: res?.sender, userB: res?.receiver});
+            }
         }).catch((err: any) => {
             io.emit(`error:${data?.chatId}`, {message: err.message})
         })

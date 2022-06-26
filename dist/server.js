@@ -55,14 +55,16 @@ io.on("connection", (socket) => {
         (0, chat_handler_1.sendMessage)(data, (data === null || data === void 0 ? void 0 : data.chatId) || chatId || "").then((res) => {
             // io.emit(`received:${res?.chatId || data?.chatId || chatId || ""}`, {message: res?.message});
             // If no chatId is provided, send the new data
-            // if (!data?.chatId && !chatId) {
             (0, chat_handler_1.getCurrentChat)(res === null || res === void 0 ? void 0 : res.chatId)
                 .then((res) => {
                 io.emit(`received:${data === null || data === void 0 ? void 0 : data.chatId}`, res);
             }).catch((err) => {
                 io.emit(`error:${(data === null || data === void 0 ? void 0 : data.chatId) || chatId || ""}`, { message: err.message });
             });
-            // }
+            // Event for completely new chat
+            if (!(data === null || data === void 0 ? void 0 : data.chatId) && !chatId) {
+                io.emit("new", { chatId: res === null || res === void 0 ? void 0 : res.chatId, userA: res === null || res === void 0 ? void 0 : res.sender, userB: res === null || res === void 0 ? void 0 : res.receiver });
+            }
         }).catch((err) => {
             io.emit(`error:${data === null || data === void 0 ? void 0 : data.chatId}`, { message: err.message });
         });
