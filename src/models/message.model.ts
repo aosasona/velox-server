@@ -11,15 +11,20 @@ const MessageSchema = new Schema<Message>({
     receiver: {
         type: String,
         required: true,
+        ref: "User"
     },
     sender: {
         type: String,
         required: true,
+        ref: "User",
     },
     chatId: {
         type: String,
         required: true,
-
+    },
+    message: {
+        type: String,
+        required: true,
     }
 
 }, {timestamps: true});

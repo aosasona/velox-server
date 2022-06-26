@@ -10,8 +10,8 @@ const app: Express = express();
 if (process.env.NODE_ENV === "production") {
     app.use(helmet());
 }
-app.disable("x-powered-by");
 app.use(cors());
+app.disable("x-powered-by");
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
@@ -22,8 +22,8 @@ import {default as routes} from "./routes";
 app.use("/api", routes);
 
 //DEFAULT RESPONSE TO TEST API
-app.get("*", (req: Request, res: Response) => {
-    res.status(200).send("Hello, world!");
-});
+// app.get("*", (req: Request, res: Response) => {
+//     res.status(200).send("Hello, world!");
+// });
 
 export default app;

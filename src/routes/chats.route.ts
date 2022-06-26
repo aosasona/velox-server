@@ -5,6 +5,6 @@ import {getAll, getCurrent} from "../controllers/chats"
 app.get("/", getAll);
 
 ///// Get Current Conversations /////
-app.get("/:chatId", getCurrent);
+app.get("/:username", getCurrent);
 
 export default app;

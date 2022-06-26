@@ -29,9 +29,9 @@ const viewAll = asyncHandler(async (req: Request, res: Response): Promise<any> =
         // _id : { $ne: req._id }
         const customReq: CustomRequest = req as CustomRequest;
         const currentUser = customReq.user.id
-        let users = await User.find({}).select(["-password", "-updatedAt", "-__id", "-__v"]);
+        let users = await User.find({}).select(["-password", "-updatedAt", "-__v"]);
 
-        users = users.filter(user => user._id.toString() !== currentUser);
+        users = users.filter(user => user?._id?.toString() !== currentUser);
 
         if (!users) {
             throw new CustomError("No users found", 404);
@@ -39,6 +39,7 @@ const viewAll = asyncHandler(async (req: Request, res: Response): Promise<any> =
 
         return new CustomResponse(res).success("Fetched all users", users, 200);
     } catch (err: any) {
+        console.log(err);
         return new CustomResponse(res).error(err.message, {}, err.status || 500);
     }
 })
