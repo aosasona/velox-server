@@ -11,8 +11,9 @@ const getCurrentChat = async (chatId: string): Promise<any> => {
             return {chatId: chatId || "", messages: []};
         }
 
-        const messages = await Messages.find({chatId: chatId}).populate("receiver", "username").populate("sender", "username").select(["-_id"]).sort({createdAt: "asc"});
+        const messages = await Messages.find({chatId: chatId}).select(["-_id"]).sort({createdAt: "asc"});
 
+        // .populate("receiver", "username").populate("sender", "username")
 
         return {chatId, messages};
     } catch (err: any) {

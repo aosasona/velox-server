@@ -22,7 +22,8 @@ const getCurrentChat = (chatId) => __awaiter(void 0, void 0, void 0, function* (
         if (!chatId) {
             return { chatId: chatId || "", messages: [] };
         }
-        const messages = yield message_model_1.default.find({ chatId: chatId }).populate("receiver", "username").populate("sender", "username").select(["-_id"]).sort({ createdAt: "asc" });
+        const messages = yield message_model_1.default.find({ chatId: chatId }).select(["-_id"]).sort({ createdAt: "asc" });
+        // .populate("receiver", "username").populate("sender", "username")
         return { chatId, messages };
     }
     catch (err) {

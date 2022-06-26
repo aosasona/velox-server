@@ -40,27 +40,27 @@ io.on("connection", (socket: any) => {
     socket.on("chat", (data: any) => {
         getCurrentChat(data?.chatId || chatId || "")
             .then((res) => {
-                socket.emit(`chat:${data?.chatId}`, res);
+                io.emit(`chat:${data?.chatId}`, res);
             }).catch((err: any) => {
-            socket.emit(`error:${data?.chatId || chatId || ""}`, {message: err.message})
+            io.emit(`error:${data?.chatId || chatId || ""}`, {message: err.message})
         })
     })
 
     // When a message is sent
     socket.on("sent", (data: any) => {
         sendMessage(data, data?.chatId || chatId || "").then((res) => {
-            socket.emit(`received:${res?.chatId || data?.chatId || chatId || ""}`, {message: res?.message});
+            // io.emit(`received:${res?.chatId || data?.chatId || chatId || ""}`, {message: res?.message});
             // If no chatId is provided, send the new data
-            if (!data?.chatId && !chatId) {
-                getCurrentChat(res?.chatId)
-                    .then((res) => {
-                        socket.emit(`chat:${data?.chatId}`, res);
-                    }).catch((err: any) => {
-                    socket.emit(`error:${data?.chatId || chatId || ""}`, {message: err.message})
-                })
-            }
+            // if (!data?.chatId && !chatId) {
+            getCurrentChat(res?.chatId)
+                .then((res) => {
+                    io.emit(`received:${data?.chatId}`, res);
+                }).catch((err: any) => {
+                io.emit(`error:${data?.chatId || chatId || ""}`, {message: err.message})
+            })
+            // }
         }).catch((err: any) => {
-            socket.emit(`error:${data?.chatId}`, {message: err.message})
+            io.emit(`error:${data?.chatId}`, {message: err.message})
         })
     })
 })

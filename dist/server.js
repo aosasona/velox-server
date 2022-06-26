@@ -45,26 +45,26 @@ io.on("connection", (socket) => {
     socket.on("chat", (data) => {
         (0, chat_handler_1.getCurrentChat)((data === null || data === void 0 ? void 0 : data.chatId) || chatId || "")
             .then((res) => {
-            socket.emit(`chat:${data === null || data === void 0 ? void 0 : data.chatId}`, res);
+            io.emit(`chat:${data === null || data === void 0 ? void 0 : data.chatId}`, res);
         }).catch((err) => {
-            socket.emit(`error:${(data === null || data === void 0 ? void 0 : data.chatId) || chatId || ""}`, { message: err.message });
+            io.emit(`error:${(data === null || data === void 0 ? void 0 : data.chatId) || chatId || ""}`, { message: err.message });
         });
     });
     // When a message is sent
     socket.on("sent", (data) => {
         (0, chat_handler_1.sendMessage)(data, (data === null || data === void 0 ? void 0 : data.chatId) || chatId || "").then((res) => {
-            socket.emit(`received:${(res === null || res === void 0 ? void 0 : res.chatId) || (data === null || data === void 0 ? void 0 : data.chatId) || chatId || ""}`, { message: res === null || res === void 0 ? void 0 : res.message });
+            // io.emit(`received:${res?.chatId || data?.chatId || chatId || ""}`, {message: res?.message});
             // If no chatId is provided, send the new data
-            if (!(data === null || data === void 0 ? void 0 : data.chatId) && !chatId) {
-                (0, chat_handler_1.getCurrentChat)(res === null || res === void 0 ? void 0 : res.chatId)
-                    .then((res) => {
-                    socket.emit(`chat:${data === null || data === void 0 ? void 0 : data.chatId}`, res);
-                }).catch((err) => {
-                    socket.emit(`error:${(data === null || data === void 0 ? void 0 : data.chatId) || chatId || ""}`, { message: err.message });
-                });
-            }
+            // if (!data?.chatId && !chatId) {
+            (0, chat_handler_1.getCurrentChat)(res === null || res === void 0 ? void 0 : res.chatId)
+                .then((res) => {
+                io.emit(`received:${data === null || data === void 0 ? void 0 : data.chatId}`, res);
+            }).catch((err) => {
+                io.emit(`error:${(data === null || data === void 0 ? void 0 : data.chatId) || chatId || ""}`, { message: err.message });
+            });
+            // }
         }).catch((err) => {
-            socket.emit(`error:${data === null || data === void 0 ? void 0 : data.chatId}`, { message: err.message });
+            io.emit(`error:${data === null || data === void 0 ? void 0 : data.chatId}`, { message: err.message });
         });
     });
 });
